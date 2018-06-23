@@ -29,8 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/data_loading_error_text"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:textSize="@dimen/error_message_text_size"
+            android:textColor="@color/black"/>
     </FrameLayout>
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->

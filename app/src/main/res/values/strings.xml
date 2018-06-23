@@ -4,7 +4,7 @@
     <string name="sort_by_most_popular">Most popular</string>
     <string name="drawer_menu_header_title">Sort your movies by:</string>
     <string name="detail_layout_movie_title">Movie title</string>
-    <string name="data_loading_error_text">There was an error loading your data</string>
+    <string name="data_loading_error_text">There was an error loading your data. \nCheck your internet connection.</string>
     <string name="nav_drawer_open">Open drawer</string>
     <string name="nav_drawer_close">Close drawer</string>
     <string name="grid_rows">2</string>

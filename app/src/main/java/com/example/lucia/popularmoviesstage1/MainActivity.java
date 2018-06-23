@@ -3,6 +3,7 @@ package com.example.lucia.popularmoviesstage1;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Loader;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int MOVIE_LOADER_ID = 1;
     public String sortBy = "top_rated";
+    public View noConnectionView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private MovieAdapter movieAdapter;
@@ -46,17 +48,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_drawer_open, R.string.nav_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //setup of the recycler view that hosts the movie list
         RecyclerView recyclerView = findViewById(R.id.movie_list);
-        View noConnectionView = findViewById(R.id.error_loading_movie_list);
+        noConnectionView = findViewById(R.id.error_loading_movie_list);
 
         //setup of the movie list
-        int gridRows = valueOf(getString(R.string.grid_rows));
+        int gridRows = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 4 : 2;
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(recyclerView.getContext(),
                 gridRows);
         recyclerView.setLayoutManager(layoutManager);
@@ -83,7 +87,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         boolean hasConnection = false;
-        if (networkInfo != null && networkInfo.isConnected()) hasConnection = true;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            hasConnection = true;
+        }
         return hasConnection;
     }
 
@@ -95,12 +101,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // sets order for the movie list by most popular
             sortBy = getString(R.string.popular);
             drawerLayout.closeDrawer(GravityCompat.START);
-            getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, this);
+            if (isConnected()) {
+                getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, this);
+                noConnectionView.setVisibility(View.GONE);
+            }
         } else if (id == R.id.sort_by_top_rated) {
             // sets order for the movie list by top rated
             sortBy = getString(R.string.rated);
             drawerLayout.closeDrawer(GravityCompat.START);
-            getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, this);
+            if (isConnected()) {
+                getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, this);
+                noConnectionView.setVisibility(View.GONE);
+            }
         }
         return true;
     }
@@ -108,10 +120,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return actionBarDrawerToggle.onOptionsItemSelected(item)|| super.onOptionsItemSelected(item);
     }
 
     @Override
