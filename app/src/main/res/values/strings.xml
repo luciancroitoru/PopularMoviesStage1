@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="sort_by_top_rated">Top rated</string>
+    <string name="sort_by_most_popular">Most popular</string>
+    <string name="drawer_menu_header_title">Sort your movies by:</string>
+    <string name="detail_layout_movie_title">Movie title</string>
+    <string name="data_loading_error_text">There was an error loading your data</string>
+    <string name="nav_drawer_open">Open drawer</string>
+    <string name="nav_drawer_close">Close drawer</string>
+    <string name="grid_rows">2</string>
+    <string name="popular">popular</string>
+    <string name="rated">top_rated</string>
+    <string name="details_movie_title">Movie title</string>
+    <string name="details_release_date">Release date</string>
+    <string name="details_vote_average">Vote average</string>
+    <string name="details_plot_synopsis">Plot synopsis</string>
+</resources>

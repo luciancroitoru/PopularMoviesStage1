@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="movie_title_padding">20dp</dimen>
+    <dimen name="movie_title_text_size">36sp</dimen>
+    <dimen name="details_poster_image_height">250dp</dimen>
+    <dimen name="details_poster_image_layout_margin">3dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="details_text_size">16sp</dimen>
+    <dimen name="plot_synopsis_layout_padding">20dp</dimen>
+    <dimen name="drawer_navigation_header_padding">16dp</dimen>
+    <dimen name="drawer_navigation_header_layout_height">192dp</dimen>
+</resources>
